@@ -17,6 +17,8 @@ public class TransitionSettings {
     public var blurColor = UIColor.clear
     public var blurAlpha: CGFloat = 1.0
     
+    public var dismissPanShouldRecognizeSimultaneously: ((UIGestureRecognizer)->(Bool?))? = nil
+    
     public var cardVerticalExpandingStyle: CardVerticalExpandingStyle = .fromTop
     
     /// Without this, there'll be weird offset (probably from scrollView) that obscures the card content view of the cardDetailView.

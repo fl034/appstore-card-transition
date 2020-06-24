@@ -37,8 +37,8 @@ public extension CardDetailViewController {
     
     var dismissHandler:CardDismissHandler {
         get {
-            if let settings = objc_getAssociatedObject(self, &AssociatedKeys.dismissHandlerKey) as? CardDismissHandler {
-                return settings
+            if let associatedDismissHandler = objc_getAssociatedObject(self, &AssociatedKeys.dismissHandlerKey) as? CardDismissHandler {
+                return associatedDismissHandler
             } else {
                 self.dismissHandler = CardDismissHandler(source: self)
                 return dismissHandler
@@ -299,6 +299,6 @@ public final class CardDismissHandler: NSObject {
 extension CardDismissHandler: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         checkScrolling(scrollView: source.scrollView)
-        return shouldDismiss()
+        return source.settings.dismissPanShouldRecognizeSimultaneously?(otherGestureRecognizer) ?? shouldDismiss()
     }
 }
